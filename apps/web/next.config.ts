@@ -2,10 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  // For Railway deployment
-  experimental: {
-    // Enable if you want to use server actions
-  },
+  // Transpile workspace packages for standalone build
+  transpilePackages: ["@mejor-tasa/core"],
 };
 
 export default nextConfig;
