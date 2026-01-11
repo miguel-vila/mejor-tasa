@@ -128,7 +128,7 @@ Explain:
 
 ### High-level architecture
 
-**Goal:** Static frontend + thin data-serving layer. Update pipeline runs separately and publishes versioned datasets.
+**Goal:** Static frontend + thin data-serving layer. Update pipeline runs separately and publishes JSON datasets.
 
 Recommended production layout:
 
@@ -315,14 +315,9 @@ type Rankings = {
 
 ### Storage format and deployment
 
-#### Versioning
+#### Output files
 
-Publish every run as immutable:
-
-- `offers-YYYY-MM-DDTHHMMSSZ.json`
-- `rankings-YYYY-MM-DDTHHMMSSZ.json`
-
-Then update pointers:
+The updater generates:
 
 - `offers-latest.json`
 - `rankings-latest.json`
@@ -330,9 +325,8 @@ Then update pointers:
 #### Hosting
 
 - Frontend: static hosting (Vercel / Cloudflare Pages / S3+CloudFront).
-- Data: object storage + CDN. Set:
+- Data: served from `public/data/` directory. Set:
   - `Cache-Control: public, max-age=300` for `*-latest.json`
-  - `Cache-Control: public, max-age=31536000, immutable` for versioned files
 
 ### Update job
 

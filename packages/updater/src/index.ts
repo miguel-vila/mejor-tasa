@@ -80,26 +80,15 @@ async function main(): Promise<void> {
   // Write outputs
   await ensureDir(DATA_DIR);
 
-  const timestamp = now.replace(/[:.]/g, "-");
-
-  // Versioned files
-  const offersVersionedPath = join(DATA_DIR, `offers-${timestamp}.json`);
-  const rankingsVersionedPath = join(DATA_DIR, `rankings-${timestamp}.json`);
-
-  // Latest files
   const offersLatestPath = join(DATA_DIR, "offers-latest.json");
   const rankingsLatestPath = join(DATA_DIR, "rankings-latest.json");
 
   await Promise.all([
-    writeJson(offersVersionedPath, dataset),
-    writeJson(rankingsVersionedPath, rankings),
     writeJson(offersLatestPath, dataset),
     writeJson(rankingsLatestPath, rankings),
   ]);
 
   console.log(`\nOutputs written to ${DATA_DIR}:`);
-  console.log(`  - offers-${timestamp}.json`);
-  console.log(`  - rankings-${timestamp}.json`);
   console.log(`  - offers-latest.json`);
   console.log(`  - rankings-latest.json`);
 

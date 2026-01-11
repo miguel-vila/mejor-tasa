@@ -71,7 +71,7 @@ Key patterns:
 - Uses `cheerio` for HTML parsing (Bancolombia)
 
 - Uses `pdfjs-dist` for PDF text extraction (all other banks)
-- Outputs versioned JSON files to `apps/web/public/data/` directory
+- Outputs JSON files to `apps/web/public/data/` directory
 
 ### `apps/web` (@mejor-tasa/web)
 
@@ -84,8 +84,8 @@ Next.js 15 frontend with React 19, TailwindCSS, and TanStack React Table.
 3. Offers are validated with Zod schemas
 4. Rankings are computed for predefined scenarios
 5. Output files written to `apps/web/public/data/`:
-   - `offers-{timestamp}.json` / `offers-latest.json`
-   - `rankings-{timestamp}.json` / `rankings-latest.json`
+   - `offers-latest.json`
+   - `rankings-latest.json`
 
 ## Domain Concepts
 
