@@ -66,6 +66,21 @@
 - [ ] GitHub Actions for scheduled ETL runs
 - [ ] Data storage setup (where to host JSON files)
 
+### Future Banks (Expansion)
+
+Additional Colombian banks that could be added:
+
+**High Priority (PDF disclosures available):**
+
+- [ ] **Banco de Bogotá** (Grupo Aval) - [Tasas y Tarifas](https://www.bancodebogota.com/tasas-y-tarifas/tasas-2025) - Monthly PDFs, may require manual download (403 blocking)
+- [ ] **Davivienda** - [Tasas y Tarifas](https://www.davivienda.com/tasas-y-tarifas) - Major bank, PDFs updated frequently
+- [ ] **Banco Popular** (Grupo Aval) - [Tasas](https://www.bancopopular.com.co/wps/portal/bancopopular/inicio/informacion-interes/tasas) - HTML page with rates, very competitive (~7.29%)
+
+**Medium Priority (HTML scraping or investigation needed):**
+
+- [ ] **Fondo Nacional del Ahorro (FNA)** - [HTML](https://www.fna.gov.co/sobre-el-fna/tasas) - Government entity, best rates (from 9% E.A.), no PDF
+- [ ] **Banco de Occidente** (Grupo Aval) - [Website](https://www.bancodeoccidente.com.co/creditos/hipotecario) - Competitive rates (~9.80% E.A.)
+
 ### Frontend Polish
 
 - [ ] Mobile navigation menu
