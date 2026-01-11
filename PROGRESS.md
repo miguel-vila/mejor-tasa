@@ -1,6 +1,6 @@
 # Progress
 
-> **Status: NOT FUNCTIONAL** - Project scaffolding complete, but parsers are not implemented yet.
+> **Status: PARTIALLY FUNCTIONAL** - Bancolombia parser implemented and tested. 5 PDF parsers remaining.
 
 ## What's Done
 
@@ -47,7 +47,7 @@
 
 ### Parsers (Critical)
 
-- [ ] **Bancolombia**: Implement HTML parsing with cheerio selectors
+- [x] **Bancolombia**: Implement HTML parsing with cheerio selectors
 - [ ] **BBVA**: Implement PDF text extraction with pdfjs-dist
 - [ ] **Scotiabank**: Implement PDF parsing
 - [ ] **Caja Social**: Implement PDF parsing
@@ -56,8 +56,8 @@
 
 ### Testing
 
-- [ ] Download HTML/PDF fixtures for each bank
-- [ ] Write unit tests for parsers
+- [x] Download HTML/PDF fixtures for each bank (Bancolombia done)
+- [x] Write unit tests for parsers (Bancolombia: 14 tests)
 - [ ] Snapshot tests for extracted offers
 
 ### Deployment
@@ -75,10 +75,10 @@
 
 ## Next Steps
 
-1. Download sample HTML/PDFs to `fixtures/` for each bank
-2. Implement Bancolombia parser first (simplest - HTML)
-3. Implement one PDF parser as a template
-4. Add tests with fixtures
+1. ~~Download sample HTML/PDFs to `fixtures/` for each bank~~ ✓ (Bancolombia done)
+2. ~~Implement Bancolombia parser first (simplest - HTML)~~ ✓
+3. Implement one PDF parser as a template (recommend BBVA or Scotiabank)
+4. ~~Add tests with fixtures~~ ✓ (Bancolombia: 14 passing tests)
 5. Deploy to Railway
 
 ## Running the Project

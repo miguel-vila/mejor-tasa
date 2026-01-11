@@ -1,17 +1,24 @@
 /**
- * Parses a Colombian-format number string to a float.
- * Handles:
- * - Comma as decimal separator (e.g., "12,50" -> 12.5)
- * - Dot as thousands separator (e.g., "1.000,50" -> 1000.5)
+ * Parses a number string to a float, handling both formats:
+ * - Colombian format: comma as decimal separator (e.g., "12,50" -> 12.5)
+ * - International format: dot as decimal separator (e.g., "12.50" -> 12.5)
  * - Strips percentage signs
+ *
+ * Detection logic:
+ * - If there's a comma, assume Colombian format (dot=thousands, comma=decimal)
+ * - If only dots exist, assume international format (dot=decimal)
  */
 export function parseColombianNumber(value: string): number {
-  const cleaned = value
-    .trim()
-    .replace(/%/g, "")
-    .replace(/\s/g, "")
-    .replace(/\./g, "") // Remove thousands separator
-    .replace(",", "."); // Convert decimal comma to dot
+  let cleaned = value.trim().replace(/%/g, "").replace(/\s/g, "");
+
+  const hasComma = cleaned.includes(",");
+  const hasDot = cleaned.includes(".");
+
+  if (hasComma) {
+    // Colombian format: dot is thousands separator, comma is decimal
+    cleaned = cleaned.replace(/\./g, "").replace(",", ".");
+  }
+  // If only dots (international format), leave as-is for parseFloat
 
   const parsed = parseFloat(cleaned);
 
