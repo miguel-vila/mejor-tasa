@@ -101,8 +101,10 @@ Tests use Vitest. Bank parsers should have fixture-based tests using saved HTML/
 
 ## Adding a New Bank Parser
 
-1. Add bank to `BankId` enum in `packages/core/src/enums.ts`
-2. Create parser in `packages/updater/src/parsers/{bank_id}.ts` implementing `BankParser`
+See `SKILLS/add-bank-parser/` for detailed instructions. Quick summary:
+
+1. Download fixture to `fixtures/{bank_id}/`
+2. Implement parser in `packages/updater/src/parsers/{bank_id}.ts`
 3. Register in `packages/updater/src/parsers/index.ts`
-4. Add fixtures in `fixtures/{bank_id}/`
-5. Write tests for the parser
+4. Write tests in `packages/updater/src/parsers/{bank_id}.test.ts`
+5. Update PROGRESS.md
