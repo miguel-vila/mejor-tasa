@@ -6,6 +6,7 @@ node_modules/
 dist/
 .next/
 out/
+*.tsbuildinfo
 
 # Data artifacts (versioned separately or from ETL)
 data/*.json
