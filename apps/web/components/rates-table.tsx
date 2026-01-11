@@ -151,7 +151,7 @@ export function RatesTable() {
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <select
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white"
           value={(table.getColumn("product_type")?.getFilterValue() as string) ?? ""}
           onChange={(e) =>
             table.getColumn("product_type")?.setFilterValue(e.target.value || undefined)
@@ -163,7 +163,7 @@ export function RatesTable() {
         </select>
 
         <select
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white"
           value={(table.getColumn("currency_index")?.getFilterValue() as string) ?? ""}
           onChange={(e) =>
             table.getColumn("currency_index")?.setFilterValue(e.target.value || undefined)
@@ -175,7 +175,7 @@ export function RatesTable() {
         </select>
 
         <select
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white"
           value={(table.getColumn("segment")?.getFilterValue() as string) ?? ""}
           onChange={(e) => table.getColumn("segment")?.setFilterValue(e.target.value || undefined)}
         >
@@ -220,7 +220,7 @@ export function RatesTable() {
               table.getRowModel().rows.map((row) => (
                 <tr key={row.id} className="hover:bg-gray-50">
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-3 whitespace-nowrap">
+                    <td key={cell.id} className="px-4 py-3 whitespace-nowrap text-gray-900">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
