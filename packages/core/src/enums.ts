@@ -7,6 +7,7 @@ export const BankId = {
   AVVILLAS: "avvillas",
   ITAU: "itau",
   FNA: "fna",
+  BANCO_POPULAR: "banco_popular",
 } as const;
 
 export type BankId = (typeof BankId)[keyof typeof BankId];
@@ -20,6 +21,7 @@ export const BankNames: Record<BankId, string> = {
   avvillas: "Banco AV Villas",
   itau: "Banco Itaú Colombia",
   fna: "Fondo Nacional del Ahorro",
+  banco_popular: "Banco Popular",
 };
 
 // Product types

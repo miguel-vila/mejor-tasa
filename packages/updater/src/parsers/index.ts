@@ -6,6 +6,7 @@ export { CajaSocialParser } from "./caja-social.js";
 export { AvvillasParser } from "./avvillas.js";
 export { ItauParser } from "./itau.js";
 export { FnaParser } from "./fna.js";
+export { BancoPopularParser } from "./banco-popular.js";
 
 import { BancolombiaParser } from "./bancolombia.js";
 import { BbvaParser } from "./bbva.js";
@@ -14,6 +15,7 @@ import { CajaSocialParser } from "./caja-social.js";
 import { AvvillasParser } from "./avvillas.js";
 import { ItauParser } from "./itau.js";
 import { FnaParser } from "./fna.js";
+import { BancoPopularParser } from "./banco-popular.js";
 import type { BankParser, ParserConfig } from "./types.js";
 
 /**
@@ -28,5 +30,6 @@ export function createAllParsers(config: ParserConfig = {}): BankParser[] {
     new AvvillasParser(config),
     new ItauParser(config),
     new FnaParser(config),
+    new BancoPopularParser(config),
   ];
 }

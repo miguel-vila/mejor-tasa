@@ -19,6 +19,7 @@ export const BankIdSchema = z.enum([
   BankId.AVVILLAS,
   BankId.ITAU,
   BankId.FNA,
+  BankId.BANCO_POPULAR,
 ]);
 
 export const ProductTypeSchema = z.enum([ProductType.HIPOTECARIO, ProductType.LEASING]);
