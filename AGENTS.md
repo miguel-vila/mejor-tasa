@@ -27,12 +27,13 @@ MejorTasa is a Colombia mortgage rates aggregator that scrapes publicly disclose
 pnpm install
 pnpm --filter @mejor-tasa/core build     # Required before other packages
 pnpm --filter @mejor-tasa/updater build  # Required before running update-rates
+                                         # Also rebuild after any changes to updater code
 
 # Development
 pnpm dev                              # Run Next.js dev server (localhost:3000)
 
 # Run rate update ETL pipeline
-pnpm update-rates                     # Scrapes banks and generates data/*.json
+pnpm update-rates                     # Scrapes banks and generates apps/web/public/data/*.json
 
 # Testing
 pnpm test                             # Run all tests
@@ -70,7 +71,7 @@ Key patterns:
 - Uses `cheerio` for HTML parsing (Bancolombia)
 
 - Uses `pdfjs-dist` for PDF text extraction (all other banks)
-- Outputs versioned JSON files to `data/` directory
+- Outputs versioned JSON files to `apps/web/public/data/` directory
 
 ### `apps/web` (@mejor-tasa/web)
 
@@ -82,7 +83,7 @@ Next.js 15 frontend with React 19, TailwindCSS, and TanStack React Table.
 2. Parsers fetch from bank URLs and extract rates
 3. Offers are validated with Zod schemas
 4. Rankings are computed for predefined scenarios
-5. Output files written to `data/`:
+5. Output files written to `apps/web/public/data/`:
    - `offers-{timestamp}.json` / `offers-latest.json`
    - `rankings-{timestamp}.json` / `rankings-latest.json`
 

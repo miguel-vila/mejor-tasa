@@ -28,7 +28,7 @@ Abre http://localhost:3000
 pnpm update-rates
 ```
 
-Esto ejecuta el ETL que descarga las tasas de los bancos y genera los archivos JSON en `data/`.
+Esto ejecuta el ETL que descarga las tasas de los bancos y genera los archivos JSON en `apps/web/public/data/`.
 
 ## Tests
 
@@ -48,4 +48,3 @@ pnpm build
 - `packages/core` - Tipos y esquemas compartidos
 - `packages/updater` - ETL/scraper de tasas
 - `fixtures/` - HTML/PDFs de prueba por banco
-- `data/` - JSON generados

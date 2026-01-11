@@ -12,7 +12,7 @@ import { createAllParsers } from "./parsers/index.js";
 import { computeRankings } from "./rankings.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = join(__dirname, "../../../data");
+const DATA_DIR = join(__dirname, "../../../apps/web/public/data");
 
 async function ensureDir(dir: string): Promise<void> {
   await mkdir(dir, { recursive: true });
