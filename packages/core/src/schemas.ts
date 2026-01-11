@@ -10,41 +10,15 @@ import {
   ScenarioKey,
 } from "./enums.js";
 
-// Enum schemas
-export const BankIdSchema = z.enum([
-  BankId.BANCOLOMBIA,
-  BankId.BBVA,
-  BankId.SCOTIABANK_COLPATRIA,
-  BankId.BANCO_CAJA_SOCIAL,
-  BankId.AVVILLAS,
-  BankId.ITAU,
-  BankId.FNA,
-  BankId.BANCO_POPULAR,
-]);
-
-export const ProductTypeSchema = z.enum([ProductType.HIPOTECARIO, ProductType.LEASING]);
-
-export const CurrencyIndexSchema = z.enum([CurrencyIndex.COP, CurrencyIndex.UVR]);
-
-export const SegmentSchema = z.enum([Segment.VIS, Segment.NO_VIS, Segment.UNKNOWN]);
-
-export const ChannelSchema = z.enum([Channel.DIGITAL, Channel.BRANCH, Channel.UNSPECIFIED]);
-
-export const SourceTypeSchema = z.enum([SourceType.HTML, SourceType.PDF]);
-
-export const ExtractionMethodSchema = z.enum([
-  ExtractionMethod.CSS_SELECTOR,
-  ExtractionMethod.REGEX,
-]);
-
-export const ScenarioKeySchema = z.enum([
-  ScenarioKey.BEST_UVR_VIS_HIPOTECARIO,
-  ScenarioKey.BEST_UVR_NO_VIS_HIPOTECARIO,
-  ScenarioKey.BEST_COP_VIS_HIPOTECARIO,
-  ScenarioKey.BEST_COP_NO_VIS_HIPOTECARIO,
-  ScenarioKey.BEST_PAYROLL_BENEFIT,
-  ScenarioKey.BEST_DIGITAL_HIPOTECARIO,
-]);
+// Enum schemas - derived automatically from const objects using z.nativeEnum()
+export const BankIdSchema = z.nativeEnum(BankId);
+export const ProductTypeSchema = z.nativeEnum(ProductType);
+export const CurrencyIndexSchema = z.nativeEnum(CurrencyIndex);
+export const SegmentSchema = z.nativeEnum(Segment);
+export const ChannelSchema = z.nativeEnum(Channel);
+export const SourceTypeSchema = z.nativeEnum(SourceType);
+export const ExtractionMethodSchema = z.nativeEnum(ExtractionMethod);
+export const ScenarioKeySchema = z.nativeEnum(ScenarioKey);
 
 // Rate schemas
 export const CopFixedRateSchema = z.object({
