@@ -124,6 +124,24 @@ export function RatesTable() {
           <span className="text-xs text-gray-500">{formatDateTime(info.getValue() as string)}</span>
         ),
       },
+      {
+        accessorFn: (row) => row.source,
+        id: "source_url",
+        header: "Fuente",
+        cell: (info) => {
+          const source = info.getValue() as Offer["source"];
+          return (
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 hover:underline text-xs"
+            >
+              {source.source_type === "PDF" ? "Ver PDF" : "Ver sitio"}
+            </a>
+          );
+        },
+      },
     ],
     []
   );
