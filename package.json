@@ -1,0 +1,18 @@
+{
+  "name": "mejor-tasa",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Colombia Mortgage Rates Aggregator - consolidates publicly disclosed mortgage rates",
+  "scripts": {
+    "dev": "pnpm --filter @mejor-tasa/web dev",
+    "build": "pnpm --filter @mejor-tasa/web build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "update-rates": "pnpm --filter @mejor-tasa/updater run update",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

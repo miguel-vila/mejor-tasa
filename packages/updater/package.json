@@ -1,0 +1,29 @@
+{
+  "name": "@mejor-tasa/updater",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "update": "node --experimental-specifier-resolution=node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@mejor-tasa/core": "workspace:*",
+    "cheerio": "^1.0.0",
+    "p-retry": "^6.2.1",
+    "pdfjs-dist": "^4.9.155"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

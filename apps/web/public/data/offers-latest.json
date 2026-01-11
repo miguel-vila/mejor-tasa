@@ -1,0 +1,233 @@
+{
+  "generated_at": "2026-01-10T14:30:00.000Z",
+  "offers": [
+    {
+      "id": "abc123def456",
+      "bank_id": "bancolombia",
+      "bank_name": "Bancolombia",
+      "product_type": "hipotecario",
+      "currency_index": "UVR",
+      "segment": "VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "UVR_SPREAD",
+        "spread_ea_from": 6.50
+      },
+      "conditions": {
+        "payroll_discount": {
+          "type": "PERCENT_OFF",
+          "value": 1.0,
+          "applies_to": "RATE",
+          "note": "Descuento por nómina Bancolombia"
+        }
+      },
+      "source": {
+        "url": "https://www.bancolombia.com/personas/creditos/vivienda/credito-hipotecario-para-comprar-vivienda",
+        "source_type": "HTML",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "CSS_SELECTOR",
+          "locator": ".tasas-table"
+        }
+      }
+    },
+    {
+      "id": "bcd234efg567",
+      "bank_id": "bancolombia",
+      "bank_name": "Bancolombia",
+      "product_type": "hipotecario",
+      "currency_index": "UVR",
+      "segment": "NO_VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "UVR_SPREAD",
+        "spread_ea_from": 8.00
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://www.bancolombia.com/personas/creditos/vivienda/credito-hipotecario-para-comprar-vivienda",
+        "source_type": "HTML",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "CSS_SELECTOR",
+          "locator": ".tasas-table"
+        }
+      }
+    },
+    {
+      "id": "cde345fgh678",
+      "bank_id": "bancolombia",
+      "bank_name": "Bancolombia",
+      "product_type": "hipotecario",
+      "currency_index": "COP",
+      "segment": "VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "COP_FIXED",
+        "ea_percent_from": 12.00
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://www.bancolombia.com/personas/creditos/vivienda/credito-hipotecario-para-comprar-vivienda",
+        "source_type": "HTML",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "CSS_SELECTOR",
+          "locator": ".tasas-table"
+        }
+      }
+    },
+    {
+      "id": "def456ghi789",
+      "bank_id": "bbva",
+      "bank_name": "BBVA Colombia",
+      "product_type": "hipotecario",
+      "currency_index": "COP",
+      "segment": "VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "COP_FIXED",
+        "ea_percent_from": 11.50,
+        "ea_percent_to": 13.00
+      },
+      "conditions": {
+        "payroll_discount": {
+          "type": "BPS_OFF",
+          "value": 200,
+          "applies_to": "RATE"
+        }
+      },
+      "source": {
+        "url": "https://www.bbva.com.co/content/dam/public-web/colombia/documents/home/prefooter/tarifas/DO-11-TASAS-VIVIENDA.pdf",
+        "source_type": "PDF",
+        "valid_from": "2026-01-01",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "REGEX",
+          "locator": "VIS.*PESOS"
+        }
+      }
+    },
+    {
+      "id": "efg567hij890",
+      "bank_id": "bbva",
+      "bank_name": "BBVA Colombia",
+      "product_type": "hipotecario",
+      "currency_index": "COP",
+      "segment": "NO_VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "COP_FIXED",
+        "ea_percent_from": 12.25,
+        "ea_percent_to": 14.50
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://www.bbva.com.co/content/dam/public-web/colombia/documents/home/prefooter/tarifas/DO-11-TASAS-VIVIENDA.pdf",
+        "source_type": "PDF",
+        "valid_from": "2026-01-01",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "REGEX",
+          "locator": "NO VIS.*PESOS"
+        }
+      }
+    },
+    {
+      "id": "fgh678ijk901",
+      "bank_id": "scotiabank_colpatria",
+      "bank_name": "Scotiabank Colpatria",
+      "product_type": "hipotecario",
+      "currency_index": "UVR",
+      "segment": "NO_VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "UVR_SPREAD",
+        "spread_ea_from": 7.60,
+        "spread_ea_to": 7.80
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://cdn.aglty.io/scotiabank-colombia/scotiabank-colpatria/pdf/tasas-y-tarifas/Tasas-y-productos-credito.pdf",
+        "source_type": "PDF",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "REGEX",
+          "locator": "HIPOTECARIO.*UVR.*NO VIS"
+        }
+      }
+    },
+    {
+      "id": "ghi789jkl012",
+      "bank_id": "avvillas",
+      "bank_name": "Banco AV Villas",
+      "product_type": "hipotecario",
+      "currency_index": "COP",
+      "segment": "VIS",
+      "channel": "DIGITAL",
+      "rate": {
+        "kind": "COP_FIXED",
+        "ea_percent_from": 11.25
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://www.avvillas.com.co/documents/37648/10212085/Tasas%2BActivas%2B02%2BEnero%2B2026.pdf",
+        "source_type": "PDF",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "REGEX",
+          "locator": "Hipotecarios-Digital.*VIS"
+        }
+      }
+    },
+    {
+      "id": "hij890klm123",
+      "bank_id": "banco_caja_social",
+      "bank_name": "Banco Caja Social",
+      "product_type": "hipotecario",
+      "currency_index": "UVR",
+      "segment": "VIS",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "UVR_SPREAD",
+        "spread_ea_from": 6.25,
+        "spread_ea_to": 7.00
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://www.bancocajasocial.com/content/dam/bcs/documentos/informacion-corporativa/tasas-precios-y-comisiones/credito-vivienda/Tasas-Credito-Vivienda.pdf",
+        "source_type": "PDF",
+        "valid_from": "2026-01-08",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "REGEX",
+          "locator": "VIS.*UVR"
+        }
+      }
+    },
+    {
+      "id": "ijk901lmn234",
+      "bank_id": "itau",
+      "bank_name": "Banco Itaú Colombia",
+      "product_type": "leasing",
+      "currency_index": "COP",
+      "segment": "UNKNOWN",
+      "channel": "UNSPECIFIED",
+      "rate": {
+        "kind": "COP_FIXED",
+        "ea_percent_from": 13.50,
+        "ea_percent_to": 15.00
+      },
+      "conditions": {},
+      "source": {
+        "url": "https://banco.itau.co/documents/d/personas/tasas-vigentes-pn-color-01-dic-2025",
+        "source_type": "PDF",
+        "retrieved_at": "2026-01-10T14:30:00.000Z",
+        "extraction": {
+          "method": "REGEX",
+          "locator": "Leasing habitacional"
+        }
+      }
+    }
+  ]
+}
