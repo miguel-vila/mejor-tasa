@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { BestRatesSection } from "@/components/best-rates-section";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { StatsSection } from "@/components/stats-section";
 
 export default function HomePage() {
   return (
@@ -14,10 +15,13 @@ export default function HomePage() {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Las Mejores Tasas Hipotecarias de Colombia
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl">
+            <p className="text-lg text-gray-600 max-w-2xl mb-8">
               Comparamos las tasas publicadas por los principales bancos para ayudarte a encontrar
               el mejor crédito de vivienda.
             </p>
+            <Suspense fallback={<StatsSkeleton />}>
+              <StatsSection />
+            </Suspense>
           </div>
         </section>
 
@@ -44,6 +48,15 @@ function BestRatesSkeleton() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse" />
       ))}
+    </div>
+  );
+}
+
+function StatsSkeleton() {
+  return (
+    <div className="flex flex-wrap gap-8">
+      <div className="h-20 w-40 bg-gray-100 rounded-lg animate-pulse" />
+      <div className="h-20 w-40 bg-gray-100 rounded-lg animate-pulse" />
     </div>
   );
 }
