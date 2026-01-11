@@ -101,7 +101,7 @@ Tests use Vitest. Bank parsers should have fixture-based tests using saved HTML/
 
 ## Adding a New Bank Parser
 
-See `SKILLS/add-bank-parser/` for detailed instructions. Quick summary:
+See `.claude/skills/add-bank-parser/` for detailed instructions. Quick summary:
 
 1. Download fixture to `fixtures/{bank_id}/`
 2. Implement parser in `packages/updater/src/parsers/{bank_id}.ts`
