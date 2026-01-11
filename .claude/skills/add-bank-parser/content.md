@@ -18,6 +18,38 @@ This skill guides you through adding a new bank parser to the MejorTasa rate agg
 
 ---
 
+## Step 0: Find a Stable URL
+
+Before downloading fixtures, investigate the bank's URL structure to find the most stable endpoint.
+
+### URL Stability Guidelines
+
+**Prefer (most stable):**
+
+- Semantic paths: `/documents/d/guest/tasas-tarifas`
+- Content delivery endpoints: `/documents/`, `/assets/`, `/files/`
+- Simple filenames: `rates.pdf`, `tasas.pdf`
+
+**Avoid (less stable):**
+
+- UUID-based paths: `/wps/wcm/connect/personas/5f45e48c-8e91-49f2-b85e-71c14b09512b/...`
+- Date-stamped filenames: `TASAS+TARIFAS+14+08+2025.pdf`
+- Session-based URLs with tokens
+
+### How to Find Stable URLs
+
+1. **Check the bank's footer or "Tasas y Tarifas" page** for direct PDF links
+2. **Use web search** to find indexed PDF URLs: `site:bankname.com tasas tarifas filetype:pdf`
+3. **Inspect network requests** in browser DevTools when downloading the PDF manually
+4. **Look for `/documents/d/guest/` patterns** (Liferay) or similar CMS document endpoints
+
+### Example: Davivienda
+
+- ❌ Unstable: `https://www.davivienda.com/wps/wcm/connect/personas/5f45e48c-8e91-49f2-b85e-71c14b09512b/TASAS+TARIFAS+DAVIVIENDA+02+09+2025.pdf`
+- ✅ Stable: `https://www.davivienda.com/documents/d/guest/tasas-tarifas-davivienda`
+
+---
+
 ## Step 1: Download a Fixture File
 
 Fixtures are saved copies of bank rate disclosures used for testing. They ensure tests are deterministic and don't depend on network availability.
@@ -33,15 +65,19 @@ Where `{bank_id}` matches the enum value (e.g., `bancolombia`, `scotiabank_colpa
 ### For HTML sources
 
 ```bash
-curl -o fixtures/{bank_id}/rates-page.html "https://example.com/rates-page"
+curl -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+  -o fixtures/{bank_id}/rates-page.html "https://example.com/rates-page"
 ```
 
 ### For PDF sources
 
 ```bash
 mkdir -p fixtures/{bank_id}
-curl -L -o fixtures/{bank_id}/rates.pdf "https://example.com/rates.pdf"
+curl -L -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+  -o fixtures/{bank_id}/rates.pdf "https://example.com/rates.pdf"
 ```
+
+**Note:** Always use a browser user-agent (`-A "Mozilla/5.0..."`) when downloading fixtures. Many banks block requests with default curl/wget user-agents.
 
 ---
 
@@ -138,7 +174,10 @@ export class MyBankParser implements BankParser {
     if (this.config.useFixtures && this.config.fixturesPath) {
       content = await readFile(this.config.fixturesPath);
     } else {
-      const result = await fetchWithRetry(this.sourceUrl);
+      // Use browser user-agent if the bank blocks automated requests
+      const result = await fetchWithRetry(this.sourceUrl, {
+        useBrowserUserAgent: true, // Set to true if bank blocks default user-agent
+      });
       content = result.content;
     }
 
@@ -409,13 +448,15 @@ Update the status line and test counts as appropriate.
 
 ## Checklist
 
-- [ ] Fixture downloaded to `fixtures/{bank_id}/`
+- [ ] Stable URL identified (avoid UUIDs, date-stamped filenames)
+- [ ] Fixture downloaded to `fixtures/{bank_id}/` (using browser user-agent)
 - [ ] Parser implemented in `packages/updater/src/parsers/{bank_id}.ts`
+- [ ] Parser uses `useBrowserUserAgent: true` if needed
 - [ ] Parser registered in `packages/updater/src/parsers/index.ts`
 - [ ] Tests written in `packages/updater/src/parsers/{bank_id}.test.ts`
 - [ ] All tests pass: `pnpm --filter @mejor-tasa/updater test -- --run`
 - [ ] Type check passes: `pnpm typecheck`
-- [ ] PROGRESS.md updated
+- [ ] PROGRESS.md updated (note if browser user-agent required)
 
 ---
 
@@ -426,23 +467,43 @@ Update the status line and test counts as appropriate.
 
 ## Common Issues
 
-### PDF returns 403 Forbidden
+### PDF returns 403 Forbidden or Bot Protection (Incapsula, Cloudflare, etc.)
 
-Some banks block automated requests. Try:
+Many banks use bot protection services. Here's how to work around them:
 
-- Adding user-agent headers
-- Downloading manually and using only fixtures for now
-- Checking if the URL has changed
+#### 1. Use Browser User-Agent (Most Common Fix)
 
-#### Itaú (Known Issue)
+Pass `useBrowserUserAgent: true` to `fetchWithRetry`:
 
-Itaú blocks all automated PDF downloads with 403 Forbidden. The parser is implemented but requires manual PDF download:
+```typescript
+const result = await fetchWithRetry(SOURCE_URL, {
+  useBrowserUserAgent: true, // Uses Chrome user-agent instead of "MejorTasa/1.0"
+});
+```
 
-1. Visit https://banco.itau.co/web/personas/informacion-de-interes/tasas-y-tarifas
-2. Download the "Tasas vigentes persona natural" PDF
-3. Save it to `fixtures/itau/rates.pdf`
+This works for: Banco de Bogotá, Banco de Occidente, Davivienda
 
-The parser will work with fixtures but live fetching is not possible.
+#### 2. Find Alternative URLs
+
+Bot protection often only applies to landing pages, not direct document URLs:
+
+- **Landing page (protected):** `https://bank.com/tasas-y-tarifas` → Blocked by Incapsula
+- **Direct PDF (unprotected):** `https://bank.com/documents/d/guest/tasas` → Works!
+
+Use web search to find direct document URLs that bypass the protected pages.
+
+#### 3. Manual Download Only (Last Resort)
+
+If all else fails, download fixtures manually and document this limitation.
+
+#### Known Banks Requiring Workarounds
+
+| Bank               | Issue                         | Solution                                           |
+| ------------------ | ----------------------------- | -------------------------------------------------- |
+| Itaú               | 403 on all automated requests | Manual PDF download only                           |
+| Banco de Bogotá    | Default user-agent blocked    | `useBrowserUserAgent: true`                        |
+| Banco de Occidente | Default user-agent blocked    | `useBrowserUserAgent: true`                        |
+| Davivienda         | Incapsula on landing page     | Use `/documents/d/guest/` URL + browser user-agent |
 
 ### Colombian number formats
 
