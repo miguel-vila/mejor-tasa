@@ -1,6 +1,6 @@
 # Progress
 
-> **Status: PARTIALLY FUNCTIONAL** - Bancolombia, Scotiabank Colpatria, BBVA, and Caja Social parsers implemented and tested. 2 PDF parsers remaining.
+> **Status: PARTIALLY FUNCTIONAL** - Bancolombia, Scotiabank Colpatria, BBVA, Caja Social, and AV Villas parsers implemented and tested. 1 PDF parser remaining (Itaú).
 
 ## What's Done
 
@@ -51,13 +51,13 @@
 - [x] **BBVA**: Implement PDF text extraction with pdfjs-dist (18 tests)
 - [x] **Scotiabank**: Implement PDF parsing with pdfjs-dist (13 tests)
 - [x] **Caja Social**: Implement PDF parsing with pdfjs-dist (13 tests)
-- [ ] **AV Villas**: Implement PDF link discovery + parsing
-- [ ] **Itaú**: Implement PDF parsing
+- [x] **AV Villas**: Implement PDF link discovery + parsing (15 tests)
+- [ ] **Itaú**: Implement PDF parsing (blocked: server returns 403 Forbidden)
 
 ### Testing
 
-- [x] Download HTML/PDF fixtures for each bank (Bancolombia, Scotiabank, BBVA, Caja Social done)
-- [x] Write unit tests for parsers (Bancolombia: 14 tests, Scotiabank: 13 tests, BBVA: 18 tests, Caja Social: 13 tests)
+- [x] Download HTML/PDF fixtures for each bank (Bancolombia, Scotiabank, BBVA, Caja Social, AV Villas done)
+- [x] Write unit tests for parsers (Bancolombia: 14 tests, Scotiabank: 13 tests, BBVA: 18 tests, Caja Social: 13 tests, AV Villas: 15 tests)
 - [ ] Snapshot tests for extracted offers
 
 ### Deployment
@@ -81,8 +81,9 @@
 4. ~~Add tests with fixtures~~ ✓ (Bancolombia: 14 tests, Scotiabank: 13 tests, BBVA: 18 tests)
 5. ~~Implement BBVA PDF parser~~ ✓ (18 tests)
 6. ~~Implement Caja Social PDF parser~~ ✓ (13 tests)
-7. Implement remaining PDF parsers (AV Villas, Itaú)
-8. Deploy to Railway
+7. ~~Implement AV Villas PDF parser~~ ✓ (15 tests)
+8. Implement Itaú PDF parser (blocked: need to manually download PDF or find alternative URL)
+9. Deploy to Railway
 
 ## Running the Project
 
