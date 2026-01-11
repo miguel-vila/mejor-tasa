@@ -7,10 +7,15 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
+const siteUrl = "https://mejortasa.co";
+const siteName = "Mejor Tasa";
+const title = "Mejor Tasa | Tasas de Crédito Hipotecario en Colombia";
+const description =
+  "Compara las mejores tasas de crédito hipotecario y leasing habitacional en Colombia. Información actualizada de Bancolombia, BBVA, Scotiabank, y más.";
+
 export const metadata: Metadata = {
-  title: "Mejor Tasa | Tasas de Crédito Hipotecario en Colombia",
-  description:
-    "Compara las mejores tasas de crédito hipotecario y leasing habitacional en Colombia. Información actualizada de Bancolombia, BBVA, Scotiabank, y más.",
+  title,
+  description,
   keywords: [
     "crédito hipotecario",
     "leasing habitacional",
@@ -20,6 +25,42 @@ export const metadata: Metadata = {
     "UVR",
     "VIS",
   ],
+  authors: [{ name: siteName }],
+  creator: siteName,
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_CO",
+    url: siteUrl,
+    siteName,
+    title,
+    description,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Mejor Tasa - Compara tasas hipotecarias en Colombia",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
