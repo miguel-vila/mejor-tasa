@@ -2,6 +2,20 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Before You Start
+
+**Read `PROGRESS.md` first.** It contains:
+
+- Current project status (what works, what doesn't)
+- Checklist of completed and pending tasks
+- Next steps prioritized by importance
+
+**After completing work**, update `PROGRESS.md`:
+
+- Mark completed items with `[x]`
+- Add new items discovered during implementation
+- Update the status if the project becomes functional
+
 ## Project Overview
 
 MejorTasa is a Colombia mortgage rates aggregator that scrapes publicly disclosed rates from Colombian banks and presents them on a consumer-facing comparison site. The system consists of an ETL pipeline that extracts rates from HTML/PDF sources and a Next.js frontend for displaying them.
