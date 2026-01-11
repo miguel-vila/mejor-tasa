@@ -1,6 +1,6 @@
 # Progress
 
-> **Status: PARTIALLY FUNCTIONAL** - Bancolombia and Scotiabank Colpatria parsers implemented and tested. 4 PDF parsers remaining.
+> **Status: PARTIALLY FUNCTIONAL** - Bancolombia, Scotiabank Colpatria, and BBVA parsers implemented and tested. 3 PDF parsers remaining.
 
 ## What's Done
 
@@ -47,8 +47,8 @@
 
 ### Parsers (Critical)
 
-- [x] **Bancolombia**: Implement HTML parsing with cheerio selectors
-- [ ] **BBVA**: Implement PDF text extraction with pdfjs-dist
+- [x] **Bancolombia**: Implement HTML parsing with cheerio selectors (14 tests)
+- [x] **BBVA**: Implement PDF text extraction with pdfjs-dist (18 tests)
 - [x] **Scotiabank**: Implement PDF parsing with pdfjs-dist (13 tests)
 - [ ] **Caja Social**: Implement PDF parsing
 - [ ] **AV Villas**: Implement PDF link discovery + parsing
@@ -56,8 +56,8 @@
 
 ### Testing
 
-- [x] Download HTML/PDF fixtures for each bank (Bancolombia, Scotiabank done)
-- [x] Write unit tests for parsers (Bancolombia: 14 tests, Scotiabank: 13 tests)
+- [x] Download HTML/PDF fixtures for each bank (Bancolombia, Scotiabank, BBVA done)
+- [x] Write unit tests for parsers (Bancolombia: 14 tests, Scotiabank: 13 tests, BBVA: 18 tests)
 - [ ] Snapshot tests for extracted offers
 
 ### Deployment
@@ -75,12 +75,13 @@
 
 ## Next Steps
 
-1. ~~Download sample HTML/PDFs to `fixtures/` for each bank~~ ✓ (Bancolombia, Scotiabank done)
+1. ~~Download sample HTML/PDFs to `fixtures/` for each bank~~ ✓ (Bancolombia, Scotiabank, BBVA done)
 2. ~~Implement Bancolombia parser first (simplest - HTML)~~ ✓
 3. ~~Implement one PDF parser as a template (recommend BBVA or Scotiabank)~~ ✓ (Scotiabank done)
-4. ~~Add tests with fixtures~~ ✓ (Bancolombia: 14 tests, Scotiabank: 13 tests)
-5. Implement remaining PDF parsers (BBVA, Caja Social, AV Villas, Itaú)
-6. Deploy to Railway
+4. ~~Add tests with fixtures~~ ✓ (Bancolombia: 14 tests, Scotiabank: 13 tests, BBVA: 18 tests)
+5. ~~Implement BBVA PDF parser~~ ✓ (18 tests)
+6. Implement remaining PDF parsers (Caja Social, AV Villas, Itaú)
+7. Deploy to Railway
 
 ## Running the Project
 
