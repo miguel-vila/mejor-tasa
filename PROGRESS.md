@@ -1,6 +1,6 @@
 # Progress
 
-> **Status: READY TO DEPLOY** - All 9 bank parsers implemented (129 tests). Railway + GitHub Actions configured. Note: Itaú requires manual PDF download due to 403 blocking. Banco de Bogotá requires browser user-agent.
+> **Status: READY TO DEPLOY** - All 10 bank parsers implemented (143 tests). Railway + GitHub Actions configured. Note: Itaú requires manual PDF download due to 403 blocking. Banco de Bogotá and Banco de Occidente require browser user-agent.
 
 ## What's Done
 
@@ -21,7 +21,7 @@
 - [x] Project setup with vitest
 - [x] Utility functions (number parsing, fetch with retry, hashing)
 - [x] Rankings computation logic
-- [x] Parser stubs for all 9 banks:
+- [x] Parser stubs for all 10 banks:
   - Bancolombia (HTML)
   - BBVA (PDF)
   - Scotiabank Colpatria (PDF)
@@ -31,6 +31,7 @@
   - FNA (HTML)
   - Banco Popular (HTML)
   - Banco de Bogotá (PDF)
+  - Banco de Occidente (PDF)
 
 ### `apps/web`
 
@@ -62,8 +63,8 @@
 
 ### Testing
 
-- [x] Download HTML/PDF fixtures for each bank (all 9 banks done)
-- [x] Write unit tests for parsers (Bancolombia: 14, Scotiabank: 13, BBVA: 18, Caja Social: 13, AV Villas: 15, Itaú: 13, FNA: 16, Banco Popular: 14, Banco de Bogotá: 13 - Total: 129 tests)
+- [x] Download HTML/PDF fixtures for each bank (all 10 banks done)
+- [x] Write unit tests for parsers (Bancolombia: 14, Scotiabank: 13, BBVA: 18, Caja Social: 13, AV Villas: 15, Itaú: 13, FNA: 16, Banco Popular: 14, Banco de Bogotá: 13, Banco de Occidente: 14 - Total: 143 tests)
 - [ ] Snapshot tests for extracted offers
 
 ### Deployment
@@ -83,7 +84,7 @@ Additional Colombian banks that could be added:
 
 **Medium Priority (HTML scraping or investigation needed):**
 
-- [ ] **Banco de Occidente** (Grupo Aval) - [Website](https://www.bancodeoccidente.com.co/creditos/hipotecario) - Competitive rates (~9.80% E.A.) - (403 blocking)
+- [x] **Banco de Occidente** (Grupo Aval) - Implemented! (14 tests) Requires browser user-agent - COP rates only (~11.62% E.A.)
 
 ### Frontend Polish
 

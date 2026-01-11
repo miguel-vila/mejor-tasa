@@ -8,6 +8,7 @@ export { ItauParser } from "./itau.js";
 export { FnaParser } from "./fna.js";
 export { BancoPopularParser } from "./banco-popular.js";
 export { BancoDeBogotaParser } from "./banco-de-bogota.js";
+export { BancoDeOccidenteParser } from "./banco-de-occidente.js";
 
 import { BancolombiaParser } from "./bancolombia.js";
 import { BbvaParser } from "./bbva.js";
@@ -18,6 +19,7 @@ import { ItauParser } from "./itau.js";
 import { FnaParser } from "./fna.js";
 import { BancoPopularParser } from "./banco-popular.js";
 import { BancoDeBogotaParser } from "./banco-de-bogota.js";
+import { BancoDeOccidenteParser } from "./banco-de-occidente.js";
 import type { BankParser, ParserConfig } from "./types.js";
 
 /**
@@ -34,5 +36,6 @@ export function createAllParsers(config: ParserConfig = {}): BankParser[] {
     new FnaParser(config),
     new BancoPopularParser(config),
     new BancoDeBogotaParser(config),
+    new BancoDeOccidenteParser(config),
   ];
 }
