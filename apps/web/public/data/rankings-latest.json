@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-11T21:24:59.713Z",
+  "generated_at": "2026-01-12T01:13:42.154Z",
   "scenarios": {
     "best_uvr_vis_hipotecario": {
       "offer_id": "586cae489862fdf7",
@@ -9,10 +9,10 @@
       }
     },
     "best_uvr_no_vis_hipotecario": {
-      "offer_id": "e9c99af0ce3065f3",
+      "offer_id": "008876188be57f15",
       "metric": {
         "kind": "UVR_SPREAD_EA",
-        "value": 6.1
+        "value": 7.5
       }
     },
     "best_cop_vis_hipotecario": {
@@ -23,10 +23,10 @@
       }
     },
     "best_cop_no_vis_hipotecario": {
-      "offer_id": "2458ef80132c9a83",
+      "offer_id": "0083c10892a5f163",
       "metric": {
         "kind": "EA_PERCENT",
-        "value": 10
+        "value": 12
       }
     },
     "best_payroll_benefit": {
@@ -34,13 +34,6 @@
       "metric": {
         "kind": "UVR_SPREAD_EA",
         "value": 4.5
-      }
-    },
-    "best_digital_hipotecario": {
-      "offer_id": "4ffdcb36f61e576a",
-      "metric": {
-        "kind": "UVR_SPREAD_EA",
-        "value": 7.5
       }
     }
   }
