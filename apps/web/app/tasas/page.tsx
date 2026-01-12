@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 export const metadata = {
   title: "Todas las Tasas | Mejor Tasa",
   description:
-    "Tabla completa de tasas de crédito hipotecario y leasing habitacional en Colombia. Filtra por banco, tipo de crédito, moneda y más.",
+    "Tabla completa de tasas de crédito hipotecario y leasing habitacional en Colombia. Filtra por banco, tipo de crédito, denominación y más.",
 };
 
 export default function TasasPage() {

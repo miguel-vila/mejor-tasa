@@ -48,7 +48,7 @@ export function RatesTable() {
       },
       {
         accessorKey: "currency_index",
-        header: "Moneda",
+        header: "Denominación",
         cell: (info) => {
           const value = info.getValue() as string;
           return (
@@ -180,7 +180,7 @@ export function RatesTable() {
             table.getColumn("currency_index")?.setFilterValue(e.target.value || undefined)
           }
         >
-          <option value="">Todas las monedas</option>
+          <option value="">Todas las denominaciones</option>
           <option value={CurrencyIndex.COP}>Pesos (COP)</option>
           <option value={CurrencyIndex.UVR}>UVR</option>
         </select>
