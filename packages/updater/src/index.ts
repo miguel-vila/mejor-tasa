@@ -27,7 +27,7 @@ async function main(): Promise<void> {
 
   const parsers = createAllParsers();
   const allOffers: Offer[] = [];
-  const allWarnings: string[] = [];
+  const allErrors: string[] = [];
 
   for (const parser of parsers) {
     console.log(`Parsing ${parser.bankId}...`);
@@ -35,23 +35,28 @@ async function main(): Promise<void> {
       const result = await parser.parse();
       allOffers.push(...result.offers);
 
-      if (result.warnings.length > 0) {
-        for (const warning of result.warnings) {
-          console.warn(`  ⚠️  ${warning}`);
-          allWarnings.push(`[${parser.bankId}] ${warning}`);
-        }
+      for (const warning of result.warnings) {
+        console.warn(`  ⚠️  ${warning}`);
       }
 
       console.log(`  ✓ Found ${result.offers.length} offers`);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(`  ✗ Failed: ${message}`);
-      allWarnings.push(`[${parser.bankId}] Parse failed: ${message}`);
+      allErrors.push(`[${parser.bankId}] Parse failed: ${message}`);
     }
   }
 
   console.log(`\nTotal offers: ${allOffers.length}`);
-  console.log(`Total warnings: ${allWarnings.length}`);
+  console.log(`Total errors: ${allErrors.length}`);
+
+  if (allErrors.length > 0) {
+    console.error("\n--- Errors ---");
+    for (const error of allErrors) {
+      console.error(`  ${error}`);
+    }
+    process.exit(1);
+  }
 
   // Build dataset
   const now = new Date().toISOString();
