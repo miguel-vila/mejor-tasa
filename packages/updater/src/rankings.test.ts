@@ -34,7 +34,7 @@ function createMockOffer(overrides: Partial<Offer> & { id: string }): Offer {
 
 describe("computeRankings", () => {
   describe("BEST_COP_VIS_HIPOTECARIO", () => {
-    it("should select the offer with the lowest COP rate for VIS segment", () => {
+    it("should return top 3 offers sorted by lowest COP rate for VIS segment", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "offer-1",
@@ -58,10 +58,11 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]).toEqual({
-        offer_id: "offer-2",
-        metric: { kind: "EA_PERCENT", value: 11.5 },
-      });
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]).toEqual([
+        { position: 1, offer_id: "offer-2", metric: { kind: "EA_PERCENT", value: 11.5 } },
+        { position: 2, offer_id: "offer-1", metric: { kind: "EA_PERCENT", value: 12.0 } },
+        { position: 3, offer_id: "offer-3", metric: { kind: "EA_PERCENT", value: 13.0 } },
+      ]);
     });
 
     it("should not include NO_VIS offers in VIS ranking", () => {
@@ -82,12 +83,14 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.offer_id).toBe("vis-offer");
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
+        "vis-offer"
+      );
     });
   });
 
   describe("BEST_COP_NO_VIS_HIPOTECARIO", () => {
-    it("should select the offer with the lowest COP rate for NO_VIS segment", () => {
+    it("should return top offers sorted by lowest COP rate for NO_VIS segment", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "no-vis-1",
@@ -105,15 +108,15 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_NO_VIS_HIPOTECARIO]).toEqual({
-        offer_id: "no-vis-2",
-        metric: { kind: "EA_PERCENT", value: 10.5 },
-      });
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_NO_VIS_HIPOTECARIO]).toEqual([
+        { position: 1, offer_id: "no-vis-2", metric: { kind: "EA_PERCENT", value: 10.5 } },
+        { position: 2, offer_id: "no-vis-1", metric: { kind: "EA_PERCENT", value: 11.0 } },
+      ]);
     });
   });
 
   describe("BEST_UVR_VIS_HIPOTECARIO", () => {
-    it("should select the offer with the lowest UVR spread for VIS segment", () => {
+    it("should return top offers sorted by lowest UVR spread for VIS segment", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "uvr-vis-1",
@@ -131,10 +134,10 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_UVR_VIS_HIPOTECARIO]).toEqual({
-        offer_id: "uvr-vis-2",
-        metric: { kind: "UVR_SPREAD_EA", value: 6.5 },
-      });
+      expect(rankings.scenarios[ScenarioKey.BEST_UVR_VIS_HIPOTECARIO]).toEqual([
+        { position: 1, offer_id: "uvr-vis-2", metric: { kind: "UVR_SPREAD_EA", value: 6.5 } },
+        { position: 2, offer_id: "uvr-vis-1", metric: { kind: "UVR_SPREAD_EA", value: 7.0 } },
+      ]);
     });
 
     it("should not include COP offers in UVR ranking", () => {
@@ -155,12 +158,14 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_UVR_VIS_HIPOTECARIO]?.offer_id).toBe("uvr-offer");
+      expect(rankings.scenarios[ScenarioKey.BEST_UVR_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
+        "uvr-offer"
+      );
     });
   });
 
   describe("BEST_UVR_NO_VIS_HIPOTECARIO", () => {
-    it("should select the offer with the lowest UVR spread for NO_VIS segment", () => {
+    it("should return top offers sorted by lowest UVR spread for NO_VIS segment", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "uvr-no-vis-1",
@@ -178,15 +183,15 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_UVR_NO_VIS_HIPOTECARIO]).toEqual({
-        offer_id: "uvr-no-vis-2",
-        metric: { kind: "UVR_SPREAD_EA", value: 7.5 },
-      });
+      expect(rankings.scenarios[ScenarioKey.BEST_UVR_NO_VIS_HIPOTECARIO]).toEqual([
+        { position: 1, offer_id: "uvr-no-vis-2", metric: { kind: "UVR_SPREAD_EA", value: 7.5 } },
+        { position: 2, offer_id: "uvr-no-vis-1", metric: { kind: "UVR_SPREAD_EA", value: 8.5 } },
+      ]);
     });
   });
 
   describe("BEST_PAYROLL_BENEFIT", () => {
-    it("should select the offer with lowest rate among those with payroll discount", () => {
+    it("should return top offers sorted by lowest rate among those with payroll discount", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "no-payroll",
@@ -211,10 +216,10 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_PAYROLL_BENEFIT]).toEqual({
-        offer_id: "with-payroll-low",
-        metric: { kind: "EA_PERCENT", value: 11.0 },
-      });
+      expect(rankings.scenarios[ScenarioKey.BEST_PAYROLL_BENEFIT]).toEqual([
+        { position: 1, offer_id: "with-payroll-low", metric: { kind: "EA_PERCENT", value: 11.0 } },
+        { position: 2, offer_id: "with-payroll-high", metric: { kind: "EA_PERCENT", value: 12.0 } },
+      ]);
     });
 
     it("should return undefined when no offers have payroll discount", () => {
@@ -236,7 +241,7 @@ describe("computeRankings", () => {
   });
 
   describe("BEST_DIGITAL_HIPOTECARIO", () => {
-    it("should select the offer with lowest rate among digital channel offers", () => {
+    it("should return top offers sorted by lowest rate among digital channel offers", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "branch-offer",
@@ -257,10 +262,10 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_DIGITAL_HIPOTECARIO]).toEqual({
-        offer_id: "digital-low",
-        metric: { kind: "EA_PERCENT", value: 11.0 },
-      });
+      expect(rankings.scenarios[ScenarioKey.BEST_DIGITAL_HIPOTECARIO]).toEqual([
+        { position: 1, offer_id: "digital-low", metric: { kind: "EA_PERCENT", value: 11.0 } },
+        { position: 2, offer_id: "digital-high", metric: { kind: "EA_PERCENT", value: 12.0 } },
+      ]);
     });
 
     it("should only include HIPOTECARIO product type", () => {
@@ -281,7 +286,7 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_DIGITAL_HIPOTECARIO]?.offer_id).toBe(
+      expect(rankings.scenarios[ScenarioKey.BEST_DIGITAL_HIPOTECARIO]?.[0]?.offer_id).toBe(
         "hipotecario-digital"
       );
     });
@@ -315,7 +320,7 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.offer_id).toBe(
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
         "bbva-cop-vis"
       );
     });
@@ -327,7 +332,7 @@ describe("computeRankings", () => {
       expect(new Date(rankings.generated_at).getTime()).not.toBeNaN();
     });
 
-    it("should handle tie by selecting first sorted match", () => {
+    it("should handle tie by including both offers in ranking", () => {
       const offers: Offer[] = [
         createMockOffer({
           id: "offer-a",
@@ -345,9 +350,15 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      // Both have same rate, implementation should pick one consistently
+      // Both have same rate, both should be included in rankings
       expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]).toBeDefined();
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.metric.value).toBe(11.0);
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.length).toBe(2);
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.[0]?.metric.value).toBe(
+        11.0
+      );
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.[1]?.metric.value).toBe(
+        11.0
+      );
     });
 
     it("should populate multiple scenarios from a comprehensive offer set", () => {
@@ -402,17 +413,67 @@ describe("computeRankings", () => {
 
       const rankings = computeRankings(offers);
 
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.offer_id).toBe("cop-vis");
-      expect(rankings.scenarios[ScenarioKey.BEST_COP_NO_VIS_HIPOTECARIO]?.offer_id).toBe(
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
+        "cop-vis"
+      );
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_NO_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
         "cop-no-vis"
       );
       // digital offer has 5.0 UVR spread which beats uvr-vis at 6.5
-      expect(rankings.scenarios[ScenarioKey.BEST_UVR_VIS_HIPOTECARIO]?.offer_id).toBe("digital");
-      expect(rankings.scenarios[ScenarioKey.BEST_UVR_NO_VIS_HIPOTECARIO]?.offer_id).toBe(
+      expect(rankings.scenarios[ScenarioKey.BEST_UVR_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
+        "digital"
+      );
+      expect(rankings.scenarios[ScenarioKey.BEST_UVR_NO_VIS_HIPOTECARIO]?.[0]?.offer_id).toBe(
         "uvr-no-vis"
       );
-      expect(rankings.scenarios[ScenarioKey.BEST_DIGITAL_HIPOTECARIO]?.offer_id).toBe("digital");
-      expect(rankings.scenarios[ScenarioKey.BEST_PAYROLL_BENEFIT]?.offer_id).toBe("payroll");
+      expect(rankings.scenarios[ScenarioKey.BEST_DIGITAL_HIPOTECARIO]?.[0]?.offer_id).toBe(
+        "digital"
+      );
+      expect(rankings.scenarios[ScenarioKey.BEST_PAYROLL_BENEFIT]?.[0]?.offer_id).toBe("payroll");
+    });
+
+    it("should limit to top 3 offers even when more match", () => {
+      const offers: Offer[] = [
+        createMockOffer({
+          id: "offer-1",
+          currency_index: CurrencyIndex.COP,
+          segment: Segment.VIS,
+          rate: { kind: "COP_FIXED", ea_percent_from: 10.0 },
+        }),
+        createMockOffer({
+          id: "offer-2",
+          currency_index: CurrencyIndex.COP,
+          segment: Segment.VIS,
+          rate: { kind: "COP_FIXED", ea_percent_from: 11.0 },
+        }),
+        createMockOffer({
+          id: "offer-3",
+          currency_index: CurrencyIndex.COP,
+          segment: Segment.VIS,
+          rate: { kind: "COP_FIXED", ea_percent_from: 12.0 },
+        }),
+        createMockOffer({
+          id: "offer-4",
+          currency_index: CurrencyIndex.COP,
+          segment: Segment.VIS,
+          rate: { kind: "COP_FIXED", ea_percent_from: 13.0 },
+        }),
+        createMockOffer({
+          id: "offer-5",
+          currency_index: CurrencyIndex.COP,
+          segment: Segment.VIS,
+          rate: { kind: "COP_FIXED", ea_percent_from: 14.0 },
+        }),
+      ];
+
+      const rankings = computeRankings(offers);
+
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]?.length).toBe(3);
+      expect(rankings.scenarios[ScenarioKey.BEST_COP_VIS_HIPOTECARIO]).toEqual([
+        { position: 1, offer_id: "offer-1", metric: { kind: "EA_PERCENT", value: 10.0 } },
+        { position: 2, offer_id: "offer-2", metric: { kind: "EA_PERCENT", value: 11.0 } },
+        { position: 3, offer_id: "offer-3", metric: { kind: "EA_PERCENT", value: 12.0 } },
+      ]);
     });
   });
 });

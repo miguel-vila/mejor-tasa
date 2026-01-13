@@ -25,11 +25,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="py-12 px-4">
+        <section className="py-12 px-4 bg-gradient-to-b from-slate-900 to-slate-800">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-semibold text-gray-300 mb-8">
-              Mejores Tasas por Categoría
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-8">Mejores Tasas por Categoría</h2>
             <Suspense fallback={<BestRatesSkeleton />}>
               <BestRatesSection />
             </Suspense>
@@ -46,7 +44,10 @@ function BestRatesSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse" />
+        <div
+          key={i}
+          className="h-56 bg-slate-800 rounded-2xl border border-slate-700 animate-pulse"
+        />
       ))}
     </div>
   );

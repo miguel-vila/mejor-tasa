@@ -88,11 +88,15 @@ export type RankingMetric =
   | { kind: "EA_PERCENT"; value: number }
   | { kind: "UVR_SPREAD_EA"; value: number };
 
-// Scenario ranking entry
-export type ScenarioRanking = {
+// Ranked entry (position 1, 2, or 3)
+export type RankedEntry = {
+  position: number;
   offer_id: string;
   metric: RankingMetric;
 };
+
+// Scenario ranking - array of top ranked entries
+export type ScenarioRanking = RankedEntry[];
 
 // Rankings object (precomputed)
 export type Rankings = {

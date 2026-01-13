@@ -113,8 +113,11 @@ async function main(): Promise<void> {
 
   console.log(`\nRankings computed:`);
   for (const [scenario, ranking] of Object.entries(rankings.scenarios)) {
-    if (ranking) {
-      console.log(`  ${scenario}: ${ranking.metric.value} (${ranking.offer_id})`);
+    if (ranking && ranking.length > 0) {
+      const top = ranking[0];
+      console.log(
+        `  ${scenario}: ${top.metric.value} (${top.offer_id}) [${ranking.length} ranked]`
+      );
     }
   }
 }

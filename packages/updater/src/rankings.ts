@@ -7,6 +7,7 @@ import {
   type Offer,
   type Rankings,
   type ScenarioRanking,
+  type RankedEntry,
   type RankingMetric,
 } from "@compara-tasa/core";
 
@@ -75,11 +76,11 @@ function getOfferMetric(offer: Offer): RankingMetric {
   }
 }
 
-function findBestOffer(offers: Offer[], filter: ScenarioFilter): ScenarioRanking | undefined {
+function findTopOffers(offers: Offer[], filter: ScenarioFilter): ScenarioRanking {
   const matching = offers.filter((o) => matchesFilter(o, filter));
 
   if (matching.length === 0) {
-    return undefined;
+    return [];
   }
 
   // Sort by metric value (ascending = best)
@@ -89,11 +90,14 @@ function findBestOffer(offers: Offer[], filter: ScenarioFilter): ScenarioRanking
     return metricA.value - metricB.value;
   });
 
-  const best = matching[0];
-  return {
-    offer_id: best.id,
-    metric: getOfferMetric(best),
-  };
+  // Return top 3 offers with their positions
+  return matching.slice(0, 3).map(
+    (offer, index): RankedEntry => ({
+      position: index + 1,
+      offer_id: offer.id,
+      metric: getOfferMetric(offer),
+    })
+  );
 }
 
 /**
@@ -103,9 +107,9 @@ export function computeRankings(offers: Offer[]): Rankings {
   const scenarios: Partial<Record<ScenarioKey, ScenarioRanking>> = {};
 
   for (const [key, filter] of Object.entries(SCENARIO_FILTERS)) {
-    const best = findBestOffer(offers, filter);
-    if (best) {
-      scenarios[key as ScenarioKey] = best;
+    const topOffers = findTopOffers(offers, filter);
+    if (topOffers.length > 0) {
+      scenarios[key as ScenarioKey] = topOffers;
     }
   }
 

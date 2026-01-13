@@ -98,11 +98,15 @@ export const RankingMetricSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("UVR_SPREAD_EA"), value: z.number() }),
 ]);
 
-// Scenario ranking schema
-export const ScenarioRankingSchema = z.object({
+// Ranked entry schema (position 1, 2, or 3)
+export const RankedEntrySchema = z.object({
+  position: z.number().int().min(1).max(3),
   offer_id: z.string(),
   metric: RankingMetricSchema,
 });
+
+// Scenario ranking schema - array of top ranked entries
+export const ScenarioRankingSchema = z.array(RankedEntrySchema).max(3);
 
 // Rankings schema
 export const RankingsSchema = z.object({

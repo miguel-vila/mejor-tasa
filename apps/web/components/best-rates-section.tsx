@@ -1,6 +1,6 @@
 import { fetchRankings, fetchOffers } from "@/lib/data";
-import { formatRate, formatDateTime, SCENARIO_LABELS, SCENARIO_DESCRIPTIONS } from "@/lib/format";
-import { ScenarioKey, type Offer } from "@compara-tasa/core";
+import { formatRate, SCENARIO_LABELS, SCENARIO_DESCRIPTIONS } from "@/lib/format";
+import { ScenarioKey, type Offer, type RankedEntry } from "@compara-tasa/core";
 
 export async function BestRatesSection() {
   const [rankings, { offers }] = await Promise.all([fetchRankings(), fetchOffers()]);
@@ -23,62 +23,126 @@ export async function BestRatesSection() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {scenarios.map((scenarioKey) => {
         const ranking = rankings.scenarios[scenarioKey];
-        if (!ranking) return null;
+        if (!ranking || ranking.length === 0) return null;
 
-        const offer = offerMap.get(ranking.offer_id);
-        if (!offer) return null;
-
-        return <BestRateCard key={scenarioKey} scenarioKey={scenarioKey} offer={offer} />;
+        return (
+          <CompactRankingCard
+            key={scenarioKey}
+            scenarioKey={scenarioKey}
+            ranking={ranking}
+            offerMap={offerMap}
+          />
+        );
       })}
     </div>
   );
 }
 
-function BestRateCard({ scenarioKey, offer }: { scenarioKey: ScenarioKey; offer: Offer }) {
-  const isUvr = offer.currency_index === "UVR";
+function CompactRankingCard({
+  scenarioKey,
+  ranking,
+  offerMap,
+}: {
+  scenarioKey: ScenarioKey;
+  ranking: RankedEntry[];
+  offerMap: Map<string, Offer>;
+}) {
+  // Determine icon based on scenario
+  const getScenarioIcon = (key: ScenarioKey) => {
+    if (key.includes("uvr")) return "📈";
+    if (key.includes("cop")) return "💵";
+    if (key.includes("payroll")) return "💼";
+    if (key.includes("digital")) return "📱";
+    return "🏦";
+  };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <span
-            className={`inline-block px-2 py-1 text-xs font-medium rounded ${
-              isUvr ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
-            }`}
-          >
-            {isUvr ? "UVR" : "Pesos"}
-          </span>
-          {offer.segment !== "UNKNOWN" && (
-            <span className="ml-2 inline-block px-2 py-1 text-xs font-medium rounded bg-gray-100 text-gray-700">
-              {offer.segment === "VIS" ? "VIS" : "No VIS"}
-            </span>
-          )}
+    <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center gap-3 p-4 border-b border-slate-700">
+        <div className="w-10 h-10 bg-gradient-to-br from-teal-600 to-teal-700 rounded-xl flex items-center justify-center text-lg">
+          {getScenarioIcon(scenarioKey)}
         </div>
-        {offer.channel === "DIGITAL" && (
-          <span className="text-xs text-purple-600 font-medium">Digital</span>
-        )}
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] uppercase tracking-wider text-teal-400 font-medium">
+            Mejor Tasa
+          </p>
+          <h3 className="text-white font-semibold truncate">{SCENARIO_LABELS[scenarioKey]}</h3>
+        </div>
       </div>
 
-      <h3 className="text-sm font-medium text-gray-500 mb-1">{SCENARIO_LABELS[scenarioKey]}</h3>
+      {/* Ranking List */}
+      <div className="p-2 space-y-1.5">
+        {ranking.map((entry) => {
+          const offer = offerMap.get(entry.offer_id);
+          if (!offer) return null;
 
-      <p className="text-3xl font-bold text-gray-900 mb-2">{formatRate(offer.rate)}</p>
+          return (
+            <RankingRow
+              key={entry.offer_id}
+              entry={entry}
+              offer={offer}
+              isFirst={entry.position === 1}
+            />
+          );
+        })}
+      </div>
 
-      <p className="text-lg font-medium text-gray-700 mb-4">{offer.bank_name}</p>
+      {/* Footer */}
+      <div className="px-4 py-2 border-t border-slate-700">
+        <p className="text-[11px] text-slate-500">{SCENARIO_DESCRIPTIONS[scenarioKey]}</p>
+      </div>
+    </div>
+  );
+}
 
-      <p className="text-xs text-gray-500 mb-2">{SCENARIO_DESCRIPTIONS[scenarioKey]}</p>
+function RankingRow({
+  entry,
+  offer,
+  isFirst,
+}: {
+  entry: RankedEntry;
+  offer: Offer;
+  isFirst: boolean;
+}) {
+  const positionStyles: Record<number, { bg: string; text: string }> = {
+    1: { bg: "bg-gradient-to-r from-amber-500 to-yellow-500", text: "text-slate-900" },
+    2: { bg: "bg-gradient-to-r from-slate-400 to-slate-300", text: "text-slate-900" },
+    3: { bg: "bg-gradient-to-r from-amber-700 to-amber-600", text: "text-white" },
+  };
 
-      {offer.conditions.payroll_discount && (
-        <div className="mt-3 p-2 bg-amber-50 rounded text-xs text-amber-700">
-          Descuento nómina:{" "}
-          {offer.conditions.payroll_discount.type === "BPS_OFF"
-            ? `${offer.conditions.payroll_discount.value} pbs`
-            : `${offer.conditions.payroll_discount.value}%`}
-        </div>
-      )}
+  const style = positionStyles[entry.position] || positionStyles[3];
 
-      <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
-        <p>Recuperado: {formatDateTime(offer.source.retrieved_at)}</p>
-        {offer.source.valid_from && <p>Vigente desde: {offer.source.valid_from}</p>}
+  return (
+    <div
+      className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${
+        isFirst
+          ? "bg-gradient-to-r from-slate-800 to-amber-500/10 border border-amber-500/30"
+          : "bg-slate-800/50 hover:bg-slate-700/50"
+      }`}
+    >
+      {/* Position Badge */}
+      <div
+        className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-sm ${style.bg} ${style.text}`}
+      >
+        {entry.position}
+      </div>
+
+      {/* Bank Info */}
+      <div className="flex-1 min-w-0">
+        <p className="text-white font-medium text-sm truncate">{offer.bank_name}</p>
+        <p className="text-slate-400 text-xs truncate">
+          {offer.segment !== "UNKNOWN" && (offer.segment === "VIS" ? "VIS" : "No VIS")}
+          {offer.channel === "DIGITAL" && " • Digital"}
+          {offer.conditions.payroll_discount && " • Con nómina"}
+        </p>
+      </div>
+
+      {/* Rate */}
+      <div className="text-right flex-shrink-0">
+        <p className={`font-bold ${isFirst ? "text-teal-300 text-lg" : "text-teal-400 text-base"}`}>
+          {formatRate(offer.rate)}
+        </p>
       </div>
     </div>
   );
