@@ -2,6 +2,7 @@
 export {
   BankId,
   BankNames,
+  BankUrls,
   ProductType,
   CurrencyIndex,
   Segment,

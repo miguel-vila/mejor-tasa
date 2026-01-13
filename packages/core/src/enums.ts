@@ -34,6 +34,28 @@ export const BankNames: Record<BankId, string> = {
   bancoomeva: "Bancoomeva",
 };
 
+// Bank mortgage information URLs
+export const BankUrls: Record<BankId, string> = {
+  bancolombia:
+    "https://www.bancolombia.com/personas/creditos/vivienda/credito-hipotecario-para-comprar-vivienda",
+  bbva: "https://www.bbva.com.co/personas/productos/prestamos/vivienda/hipotecario.html",
+  scotiabank_colpatria: "https://www.davibank.com/personas/hipotecario",
+  banco_caja_social: "https://www.bancocajasocial.com/creditos-de-vivienda/credito-hipotecario/",
+  avvillas: "https://www.avvillas.com.co/credito-hipotecario",
+  itau: "https://banco.itau.co/web/personas/prestamos/creditos-de-vivienda",
+  fna: "https://www.fna.gov.co/vivienda",
+  banco_popular:
+    "https://www.bancopopular.com.co/wps/portal/bancopopular/inicio/para-ti/financiacion-vivienda",
+  banco_de_bogota: "https://www.bancodebogota.com/personas/creditos/vivienda",
+  banco_de_occidente:
+    "https://www.bancodeoccidente.com.co/wps/portal/banco-de-occidente/bancodeoccidente/para-personas/creditos/vivienda",
+  davivienda:
+    "https://www.davivienda.com/personas/credito-de-vivienda-inmuebles/credito-hipotecario",
+  banco_agrario:
+    "https://www.bancoagrario.gov.co/personas/asalariado-independiente-pensionado/credito-hipotecario",
+  bancoomeva: "https://vivienda.coomeva.com.co/",
+};
+
 // Product types
 export const ProductType = {
   HIPOTECARIO: "hipotecario",

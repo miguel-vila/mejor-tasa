@@ -1,7 +1,9 @@
 import { fetchRankings, fetchOffers } from "@/lib/data";
 import { formatRate, SCENARIO_LABELS, SCENARIO_DESCRIPTIONS } from "@/lib/format";
 import {
+  BankUrls,
   ScenarioKey,
+  type BankId,
   type Offer,
   type RankedEntry,
   type ScenarioRanking,
@@ -252,12 +254,16 @@ function RankingRow({
   };
 
   const style = positionStyles[entry.position] || positionStyles[3];
+  const bankUrl = BankUrls[offer.bank_id as BankId];
 
   return (
-    <div
-      className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${
+    <a
+      href={bankUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex items-center gap-3 p-3 rounded-xl transition-colors cursor-pointer ${
         isFirst
-          ? "bg-gradient-to-r from-slate-800 to-amber-500/10 border border-amber-500/30"
+          ? "bg-gradient-to-r from-slate-800 to-amber-500/10 border border-amber-500/30 hover:to-amber-500/20"
           : "bg-slate-800/50 hover:bg-slate-700/50"
       }`}
     >
@@ -281,6 +287,6 @@ function RankingRow({
           {formatRate(offer.rate)}
         </p>
       </div>
-    </div>
+    </a>
   );
 }
