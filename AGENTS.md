@@ -95,6 +95,17 @@ Next.js 15 frontend with React 19, TailwindCSS, and TanStack React Table.
 - **NO_VIS**: Higher value properties
 - **Payroll discount**: Banks offer rate reductions for customers with payroll deposits
 
+## Error Handling Philosophy
+
+**Fail fast and loud.** Do not implement error handling that falls back to empty data.
+
+- If a parser cannot extract rates, throw an error - do not return an empty array
+- If a required field is missing, throw an error - do not use default values
+- If a fetch fails, propagate the error - do not silently continue
+- Warnings are for recoverable issues (e.g., unexpected extra data); errors are for failures
+
+This approach ensures we detect broken parsers immediately rather than silently serving stale or incomplete data.
+
 ## Testing
 
 Tests use Vitest. Bank parsers should have fixture-based tests using saved HTML/PDF files in `fixtures/{bank_id}/`.
