@@ -98,12 +98,12 @@ Additional Colombian banks that could be added:
 
 **Banks with bot protection or inaccessible rates (cannot be automated):**
 
-- **Banco Serfinanza** - [Tasas](https://bancoserfinanza.com/servicio-al-cliente/tasas/) - Has bot protection (Radware verification). Rates page blocked by security challenge.
 - **Mibanco** - NO_VIS ~15.94% E.A. according to Superfinanciera data. PDF URLs are dated and expire (e.g., `20250108115752000000_TASAS_colocacion_enero_08_2025_Mibanco.pdf`). Would require dynamic URL discovery like Bancoomeva.
 - **Banco Unión** - NO_VIS ~17.6% E.A. Offers mortgages but has Radware bot protection. Tarifas PDF only contains insurance fees, not interest rates. No public rates PDF found.
 
 **Banks NOT offering mortgages in Colombia:**
 
+- **Banco Serfinanza** - [Tasas PDF](https://bancoserfinanza.com/wp-content/uploads/2026/01/TASAS-7-DE-ENERO-DE-2026-1.pdf) - Only offers consumer credit (libre inversión, libranza, vehicle loans), credit cards, and business financing. No mortgage products (crédito de vivienda) found in their publicly available rates documentation.
 - **Banco Falabella Colombia** - Only offers credit cards, savings accounts, and CDTs. Mortgage products only available in Chile.
 - **Banco GNB Sudameris** - Only offers credit cards, consumer loans (libre inversión), payroll loans (libranzas), and deposit products. No mortgage products (crédito de vivienda) available. Their tarifas PDF confirms no mortgage section.
 - **Banco Pichincha Colombia** - Only offers consumer credit (libre inversión, libranza), credit cards, and deposit products in Colombia. Mortgage products (crédito de vivienda VIS/VIP) are only available in Ecuador.
